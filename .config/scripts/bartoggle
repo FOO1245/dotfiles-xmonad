@@ -1,0 +1,12 @@
+#!/bin/bash
+if pgrep tint2; then
+	pkill tint2
+	exit 1
+else
+	# exec tint2 -c ~/.config/tint2/bottompanel.conf &
+	exec tint2 -c ~/.config/tint2/clock.conf &
+	exec tint2 -c ~/.config/tint2/statuspanel.conf &
+	exec tint2 -c ~/.config/tint2/webicons.conf &
+	exec tint2 -c ~/.config/tint2/workspaces.conf &
+fi
+exit
