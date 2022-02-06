@@ -12,7 +12,7 @@ setopt autocd
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/foo/.oh-my-zsh"
@@ -27,7 +27,7 @@ ZSH_THEME="random"
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# ZSH_THEME_RANDOM_CANDIDATES=( "xiong-chiamiov-plus" "fino-theme" "mira" "mikeh" "amuse" "strug" "xiong-chiamiov" "rkj" "bira" "duellj "fino" "gnzh" "jonathan")
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"

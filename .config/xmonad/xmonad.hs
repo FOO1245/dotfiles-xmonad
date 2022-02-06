@@ -7,6 +7,88 @@
 -- Normally, you'd only override those defaults you care about.
 --
 import XMonad
+    ( button1,
+      button2,
+      button3,
+      controlMask,
+      mod4Mask,
+      shiftMask,
+      xK_1,
+      xK_9,
+      xK_F1,
+      xK_Print,
+      xK_Return,
+      xK_Tab,
+      xK_a,
+      xK_b,
+      xK_c,
+      xK_comma,
+      xK_e,
+      xK_f,
+      xK_g,
+      xK_h,
+      xK_i,
+      xK_j,
+      xK_k,
+      xK_l,
+      xK_m,
+      xK_n,
+      xK_o,
+      xK_p,
+      xK_period,
+      xK_q,
+      xK_r,
+      xK_s,
+      xK_space,
+      xK_t,
+      xK_u,
+      xK_w,
+      xK_y,
+      xK_z,
+      changeProperty32,
+      getWindowProperty32,
+      propModeAppend,
+      asks,
+      getAtom,
+      spawn,
+      whenJust,
+      withDisplay,
+      (|||),
+      xmonad,
+      (-->),
+      (<+>),
+      (=?),
+      className,
+      composeAll,
+      doFloat,
+      doIgnore,
+      resource,
+      focus,
+      kill,
+      mouseMoveWindow,
+      mouseResizeWindow,
+      refresh,
+      screenWorkspace,
+      sendMessage,
+      setLayout,
+      windows,
+      withFocused,
+      Atom,
+      MonadIO(..),
+      (.|.),
+      Default(def),
+      X,
+      XConf(theRoot),
+      XConfig(XConfig, terminal, focusFollowsMouse, clickJustFocuses,
+              borderWidth, modMask, workspaces, normalBorderColor,
+              focusedBorderColor, keys, mouseBindings, manageHook, layoutHook,
+              handleEventHook, logHook, startupHook),
+      ChangeLayout(NextLayout),
+      Full(Full),
+      IncMasterN(IncMasterN),
+      Mirror(Mirror),
+      Resize(Expand, Shrink),
+      Tall(Tall) )
 import XMonad.Layout.Fullscreen
     ( fullscreenEventHook, fullscreenManageHook, fullscreenSupport, fullscreenFull )
 import Data.Monoid ()
@@ -15,7 +97,7 @@ import XMonad.Util.SpawnOnce ( spawnOnce )
 import Graphics.X11.ExtraTypes.XF86 (xF86XK_AudioLowerVolume, xF86XK_AudioRaiseVolume, xF86XK_AudioMute, xF86XK_MonBrightnessDown, xF86XK_MonBrightnessUp, xF86XK_AudioPlay, xF86XK_AudioPrev, xF86XK_AudioNext)
 import XMonad.Hooks.EwmhDesktops ( ewmh )
 import Control.Monad ( join, when )
-import XMonad.Layout.NoBorders
+import XMonad.Layout.NoBorders ( smartBorders )
 import XMonad.Hooks.ManageDocks
     ( avoidStruts, docks, manageDocks, Direction2D(D, L, R, U) )
 import XMonad.Hooks.ManageHelpers ( doFullFloat, isFullscreen )
@@ -62,7 +144,7 @@ myModMask       = mod4Mask
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces    = ["\63083", "\63288", "\63306", "\63053", "\63107", "\63601", "\63391", "\61713", "\61884"]
+myWorkspaces    = ["\63083", "\63288", "\63306", "\63053", "\63107", "\63601", "\63391", "\61502", "\61508"]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
@@ -105,7 +187,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- lock screen
-    , ((modm,               xK_F1    ), spawn "betterlockscreen -l")
+    , ((modm .|. shiftMask,  xK_l    ), spawn "betterlockscreen -u ~/Wallpapers -l")
 
     -- launch rofi and dashboard
     , ((modm,               xK_o     ), rofiLauncher)
@@ -336,7 +418,7 @@ myStartupHook = do
   spawnOnce "exec ~/.config/scripts/bartoggle"
   spawn "xsetroot -cursor_name left_ptr"
   spawn "exec ~/.config/scripts/lock.sh"
-  spawnOnce "feh --bg-scale --randomize ~/Wallpapers/yosemite-lowpoly.jpg"
+  spawnOnce "feh --bg-scale --randomize ~/Wallpapers"
   spawnOnce "picom --experimental-backends"
   spawnOnce "greenclip daemon"
   spawnOnce "dunst"
@@ -371,7 +453,7 @@ defaults = def {
 
       -- hooks, layouts
         manageHook = myManageHook,
-        layoutHook = gaps [(L,15), (R,15), (U,35), (D,10)] $ spacingRaw True (Border 5 5 5 5) True (Border 10 10 10 10) True $ smartBorders $ myLayout,
+        layoutHook = gaps [(L,15), (R,15), (U,35), (D,10)] $ spacingRaw True (Border 5 5 5 5) True (Border 10 10 10 10) True $ smartBorders  myLayout,
         handleEventHook    = myEventHook,
         logHook            = myLogHook,
         startupHook        = myStartupHook >> addEWMHFullscreen
